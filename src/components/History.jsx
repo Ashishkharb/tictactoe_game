@@ -1,4 +1,4 @@
-const History = ({ history, moveTo ,currentMove}) => {
+const History = ({ history, moveTo, currentMove }) => {
     return (
         <div className="history-wrapper">
             <ul className="history">
@@ -6,7 +6,9 @@ const History = ({ history, moveTo ,currentMove}) => {
                     <li key={index}>
                         <button
                             type="button"
-                            className={`btn-move ${currentMove===index? 'active': ''}`}
+                            className={`btn-move ${
+                                currentMove === index ? 'active' : ''
+                            }`}
                             onClick={() => moveTo(index)}
                         >
                             {index === 0
