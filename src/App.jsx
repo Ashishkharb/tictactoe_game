@@ -84,6 +84,7 @@ function App() {
                 moveTo={moveTo}
                 currentMove={currentMove}
             />
+            <div className="bg-balls"></div>
         </div>
     );
 }
