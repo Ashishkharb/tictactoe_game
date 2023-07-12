@@ -20,12 +20,11 @@ function App() {
         }
 
         setHistory(currentHistory => {
+            const isTraversing = currentMove + 1 !== currentHistory.length;
 
-            const isTraversing = currentMove +1 !==currentHistory.length;
-
-            const lastGamingState = isTraversing 
+            const lastGamingState = isTraversing
                 ? currentHistory[currentMove]
-                : currentHistory[currentHistory.length-1];
+                : currentHistory[currentHistory.length - 1];
 
             const nextSquaresState = lastGamingState.squares.map(
                 (squareValue, position) => {
@@ -36,8 +35,11 @@ function App() {
                 }
             );
 
-            const base = isTraversing  
-                ? currentHistory.slice(0,currentHistory.indexOf(lastGamingState)+1)
+            const base = isTraversing
+                ? currentHistory.slice(
+                      0,
+                      currentHistory.indexOf(lastGamingState) + 1
+                  )
                 : currentHistory;
 
             return base.concat({
@@ -49,9 +51,14 @@ function App() {
         setCurrentMove(move => move + 1);
     };
 
-    const moveTo = (move)=>{
+    const moveTo = move => {
         setCurrentMove(move);
-    }
+    };
+
+    const onNewGameStart = () => {
+        setHistory(NEW_GAME);
+        setCurrentMove(0);
+    };
 
     return (
         <div className="app">
@@ -60,8 +67,19 @@ function App() {
                 squares={gamingBoard.squares}
                 handleSquareClick={handleSquareClick}
             />
+            <button
+                type="button"
+                className={`btn-reset ${winner ? 'active' : ''}`}
+                onClick={onNewGameStart}
+            >
+                Start new Game
+            </button>
             <h2>Current game history</h2>
-            <History history={history} moveTo={moveTo} currentMove={currentMove}/>
+            <History
+                history={history}
+                moveTo={moveTo}
+                currentMove={currentMove}
+            />
         </div>
     );
 }
